@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="hello-polymer" attributes="color">
+  <template>
+    <p>
+      <span style="color: {{color}}">I'm <b><span id="el">John Doe</span></b>. This is {{home}}.</span>
+    </p>
+    <p>
+      <core-ajax url="http://ip.jsontest.com/" auto response="{{resp}}"></core-ajax>
+      <textarea value="{{resp}}"></textarea>
+    </p>
+    <p>
+      <label for="colorInput">color:</label>
+      <input id="colorInput" value="{{color}}" placeholder="Enter color...">
+    </p>
+  </template>
+  <script>
+    Polymer({
+      owner: "hello-polymer",
+      ready: function() { this.$.el.textContent = this.owner; },
+      home: "my Shadow DOM",
+      color: "red", 	// overwrited by publishing property `color`
+      colorChanged: function() {
+        // capitalized
+        if (this.color) { this.color = this.color[0].toUpperCase() + this.color.slice(1); }
+      }
+    });
+  </script>
+</polymer-element>
